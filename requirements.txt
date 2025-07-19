@@ -1,5 +1,6 @@
 # requirements.txt
 # Existant
+gradio
 langchain>=0.1.0
 langchain-community>=0.0.13
 langchain-huggingface>=0.0.1
