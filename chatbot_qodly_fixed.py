@@ -150,22 +150,11 @@ with gr.Blocks(title="🤖 Chatbot Documentation", theme=gr.themes.Soft()) as de
     clear_btn.click(clear_chat, None, [chatbot, msg])
 
 if __name__ == "__main__":
-    # Tenter différents ports si 7860 est occupé
-    for port in [7860, 7861, 7862, 7863, 7864]:
-        try:
-            demo.launch(
-                share=False,
-                server_name="127.0.0.1",
-                server_port=port,
-                show_error=True,
-                quiet=True
-            )
-            break
-        except OSError as e:
-            if "Address already in use" in str(e) or "10048" in str(e):
-                print(f"Port {port} occupé, essai du port suivant...")
-                continue
-            else:
-                raise e
-    else:
-        print("❌ Impossible de trouver un port libre entre 7860-7864")
+    # Pour Render : récupérer le port depuis la variable d'environnement
+    port = int(os.environ.get("PORT", 7860))  # 7860 en fallback local
+
+    demo.launch(
+        server_name="0.0.0.0",  # Obligatoire pour Render
+        server_port=port,
+        show_error=True
+    )
